@@ -23,3 +23,31 @@ function renderReadingTime(article) {
 }
 
 renderReadingTime(document.querySelector("article"));
+
+/*
+With the current code, if you switch articles using the left navigation, the reading time is not added to the new article. Thisis because our site is implemented as a Single Page Application (SPA) that performs soft navigations using the History API.
+
+To fix that we can use a MutationObserver to listen for changes and add the reading time to new articles.
+
+MutationObserver can have a performance cost. use sparingly. only for obsering the most relevant changes.
+*/
+
+const observer = new MutationObserver((mutations) => {
+  for (const mutation of mutations) {
+    // If a new article was added.
+    for (const node of mutation.addedNodes) {
+      if (node instanceof Element && node.tagName === "ARTICLE") {
+        // Render the reading time for this particular article.
+        renderReadingTime(node);
+      }
+    }
+  }
+});
+
+// https://developer.chrome.com/ is a SPA (Single Page Application) so can
+// update the address bar and render new content without reloading. Our content
+// script won't be reinjected when this happens, so we need to watch for
+// changes to the content.
+observer.observe(document.querySelector("devsite-content"), {
+  childList: true,
+});
