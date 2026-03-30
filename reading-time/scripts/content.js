@@ -15,7 +15,7 @@ function renderReadingTime(article) {
   badge.textContent = `⏱️ ${readingTime} min read`;
 
   //support for api reference docs
-  const heading = article.querySelector("h1");
+  const heading = article.querySelector("h1, h2, h3, h4, h5, h6");
   // support for article docs with date
   const date = article.querySelector("time")?.parentNode;
 
