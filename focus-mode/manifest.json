@@ -8,5 +8,8 @@
     "32": "images/focus-icon-32.png",
     "48": "images/focus-icon-48.png",
     "128": "images/focus-icon-128.png"
+  },
+  "background": {
+    "service_worker": "background.js"
   }
 }
