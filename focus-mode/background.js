@@ -16,6 +16,8 @@ const webstore = "https://developer.chrome.com/docs/webstore";
 
 // 2. Listen for the extension action click
 chrome.action.onClicked.addListener(async (tab) => {
+  // ensure tab and tab.id exist
+  if (!tab?.id) return;
   // 3. Check if the tab's URL matches the target URLs
   if (tab.url?.startsWith(extensions) || tab.url?.startsWith(webstore)) {
     // 4. Retrieve the current badge status
